@@ -1,0 +1,43 @@
+{
+  "wheels": [
+    {
+      "name": "Fanatec Podium BMW M4 GT3",
+      "sku": "P_SW_BMW_GT3_H",
+      "kind": "gt",
+      "diameterMm": 308,
+      "massG": 1700,
+      "priority": 1,
+      "notes": "FIA GT3 carbon, QR2 Pro. Primary mask. Need a transparent PNG shot square-on."
+    },
+    {
+      "name": "Fanatec CSL Elite McLaren GT3 V2",
+      "sku": "CSL_E_SW_MCL_PURE",
+      "kind": "gt",
+      "priority": 2
+    },
+    {
+      "name": "Fanatec ClubSport Porsche 918 RSR",
+      "sku": "CSW_RR918",
+      "kind": "gt",
+      "priority": 3
+    },
+    {
+      "name": "Fanatec ClubSport F1 2020",
+      "sku": "CS_SWFORM_V2.5_20",
+      "kind": "formula",
+      "priority": 4
+    },
+    {
+      "name": "Fanatec ClubSport BMW GT2",
+      "sku": "CSW_RBMW",
+      "kind": "gt",
+      "priority": 5
+    },
+    {
+      "name": "Leoxz XF1 Pro-3K",
+      "sku": "LEOXZ_XF1_PRO_3K",
+      "kind": "formula",
+      "priority": 6
+    }
+  ]
+}

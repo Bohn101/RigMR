@@ -1,0 +1,46 @@
+{
+  "name": "P5MP-primary",
+  "platform": {
+    "manufacturer": "ProSimu",
+    "model": "P5MP",
+    "notes": "Near-stock P5MP under existing cockpit. 4x PRS200 + 1x PRS50 traction-loss. Stroke TBD by owner (100/150/200 mm). Frame ~154 x 110 x 90 cm, 225 cm with extensions.",
+    "actuators": {
+      "corners": "PRS200",
+      "tractionLoss": "PRS50",
+      "strokeMm": null,
+      "maxSpeedMmPerSec": 280,
+      "maxAccelG": 2.0,
+      "payloadKg": 350
+    },
+    "imu": {
+      "model": "Witmotion WT901C RS232",
+      "adapter": "official CH340 RS232-USB",
+      "mount": "TBD — seat rail or tub, note +X/+Y/+Z vs chassis",
+      "baud": 115200,
+      "rateHz": 200,
+      "use": "live heave/pitch/roll/yaw of the physical cockpit so the MR mask and later vis-comp follow the platform, not a static seat-back pose"
+    }
+  },
+  "wheel": {
+    "name": "Fanatec Podium BMW M4 GT3",
+    "sku": "P_SW_BMW_GT3_H",
+    "kind": "gt",
+    "rangeDeg": 900,
+    "diameterMm": 308,
+    "thicknessMm": 40,
+    "massG": 1700,
+    "preferredDeviceSubstring": "Fanatec",
+    "pngPath": null
+  },
+  "dash": { "enabled": false, "nodes": [] },
+  "cockpit": {
+    "enabled": true,
+    "template": "p5mp-tub",
+    "nodes": []
+  },
+  "calibration": {
+    "headToWheelM": 0.42,
+    "predictMs": 30,
+    "motionFollowsImu": true
+  }
+}
