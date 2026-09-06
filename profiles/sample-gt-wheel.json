@@ -1,0 +1,23 @@
+{
+  "name": "wellington-rig",
+  "wheel": {
+    "name": "generic-gt",
+    "kind": "gt",
+    "rangeDeg": 900,
+    "thicknessMm": 18,
+    "pivotHeightMm": 0,
+    "tiltVerticalDeg": 8,
+    "invert": false,
+    "centerOffsetDeg": 0,
+    "preferredDeviceSubstring": "Fanatec"
+  },
+  "dash": { "enabled": false, "nodes": [] },
+  "cockpit": { "enabled": true, "nodes": [] },
+  "calibration": {
+    "headToWheelM": 0.42,
+    "wheelWorldX": 0.0,
+    "wheelWorldY": 0.0,
+    "wheelWorldZ": -0.42,
+    "predictMs": 30
+  }
+}
