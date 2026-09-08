@@ -24,10 +24,11 @@ internal static class Program
             Console.WriteLine($"  loaded wheel={profile.Wheel.Name} thickness={profile.Wheel.ThicknessMm}mm");
         }
 
+        var range = profile?.Wheel.RangeDeg ?? opt.RangeDeg;
         var predOpt = new SteeringPredictorOptions
         {
             PredictMs = profile?.Calibration.PredictMs ?? opt.PredictMs,
-            RangeDeg = profile?.Wheel.RangeDeg ?? opt.RangeDeg,
+            RangeDeg = range,
             Invert = profile?.Wheel.Invert ?? opt.Invert,
             CenterOffsetDeg = profile?.Wheel.CenterOffsetDeg ?? 0
         };
@@ -40,7 +41,7 @@ internal static class Program
         using var ams2 = new Ams2SharedMemoryReader();
         var ams2Open = ams2.TryOpen();
         Console.WriteLine(ams2Open
-            ? "  AMS2 shared memory: connected"
+            ? "  AMS2 shared memory: connected (steer is -1..+1, left negative)"
             : "  AMS2 shared memory: not found (start AMS2 with pCARS2 SHM)");
 
         using var udp = new UdpClient();
@@ -60,10 +61,12 @@ internal static class Program
 
             var pred = predictor.Push(sample.CenteredDeg, sample.TimestampTicks);
             float ams2Steer = float.NaN;
+            float ams2Filt = float.NaN;
             ushort flags = PosePacket.FlagWheel | PosePacket.FlagPredicted;
             if (ams2.TryRead(out var snap) && snap.Live)
             {
                 ams2Steer = snap.UnfilteredSteer;
+                ams2Filt = snap.Steer;
                 flags |= PosePacket.FlagAms2;
             }
 
@@ -88,8 +91,10 @@ internal static class Program
             if (now - lastPrint > TimeSpan.TicksPerMillisecond * 100)
             {
                 lastPrint = now;
-                var ams2Text = float.IsNaN(ams2Steer) ? "-" : ams2Steer.ToString("0.00");
-                Console.Write($"\r{packet}   ams2={ams2Text}     ");
+                var ams2Text = float.IsNaN(ams2Steer)
+                    ? "-"
+                    : $"{ams2Steer,6:0.00}/{ams2Filt,6:0.00}";
+                Console.Write($"\r raw={pred.RawDeg,7:0.00} pred={pred.PredictedDeg,7:0.00}  ams2={ams2Text}     ");
             }
 
             Thread.Sleep(1);
@@ -100,7 +105,7 @@ internal static class Program
 internal sealed class Cli
 {
     public double PredictMs { get; init; } = 30;
-    public double RangeDeg { get; init; } = 900;
+    public double RangeDeg { get; init; } = 540;
     public int Port { get; init; } = 24721;
     public bool Synthetic { get; init; }
     public bool Invert { get; init; }
@@ -108,7 +113,7 @@ internal sealed class Cli
 
     public static Cli Parse(string[] args)
     {
-        double predict = 30, range = 900;
+        double predict = 30, range = 540;
         var port = 24721;
         var synth = false;
         var invert = false;
@@ -125,7 +130,7 @@ internal sealed class Cli
                 case "--profile": profile = args[++i]; break;
                 case "--help":
                 case "-h":
-                    Console.WriteLine("RigMR.Host [--predict-ms 30] [--range-deg 900] [--port 24721] [--synthetic] [--invert] [--profile path]");
+                    Console.WriteLine("RigMR.Host [--predict-ms 30] [--range-deg 540] [--port 24721] [--synthetic] [--invert] [--profile path]");
                     Environment.Exit(0);
                     break;
             }
