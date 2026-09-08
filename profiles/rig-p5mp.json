@@ -25,12 +25,15 @@
     "name": "Fanatec Podium BMW M4 GT3",
     "sku": "P_SW_BMW_GT3_H",
     "kind": "gt",
-    "rangeDeg": 900,
+    "rangeDeg": 540,
+    "autoIdleRangeDeg": 1080,
     "diameterMm": 308,
     "thicknessMm": 40,
     "massG": 1700,
-    "preferredDeviceSubstring": "Fanatec",
-    "pngPath": null
+    "preferredDeviceSubstring": "FANATEC Podium Wheel Base DD1",
+    "axisIndex": 1,
+    "pngPath": null,
+    "notes": "Axis 1. theta = axis/32767 * SEN/2. Park SEN at 540 for GT3 or pass --range-deg to match the Tuning Menu."
   },
   "dash": { "enabled": false, "nodes": [] },
   "cockpit": {
