@@ -20,25 +20,25 @@ Still needed from you (tape + photo is enough):
 
 9-axis (accel / gyro / mag + fused Euler / quaternion). Default 9600 10 Hz; for this job set **115200 / 200 Hz**. Protocol is WitMotion binary (`0x55` packets).
 
-Use:
-1. Follow the physical tub so the wheel/dash mask stays locked to carbon you can touch while the plate heaves.
-2. Same stream can later feed visual compensation / motion-compensation in OpenXR (separate from SimTools commanding the amps).
-
 Do not use AMS2 telemetry as the *cockpit* pose. That is the virtual car. The IMU is the real room.
 
-## Primary wheel — Fanatec Podium BMW M4 GT3 (`P_SW_BMW_GT3_H`)
+## Wheel base — Fanatec Podium DD1
 
-308 mm, ~1700 g with QR, forged carbon, real GT3 part. Mask extrusion starts at ~40 mm until we measure rim + QR stack on the base.
+See `docs/fanatec.md` for the measured Axis 1 / SEN table.
 
-HID device will likely show up as the Fanatec base / SC-style hub, same idea as SimMR's "Use Selected Device as Wheel" + persist GUID. Range fallback 900°; AMS2 does not have iRacing's auto range, so we keep manual + invert.
+- Windows name: `FANATEC Podium Wheel Base DD1`
+- Steering: DirectInput **Axis 1**, ±32767 = ±SEN/2
+- Keep the base in **PC Mode**
+- Default GT3 profile lock: **540°**. AUTO with no game on driver 457 = **1080°**
+- Official SDK is NDA; we read HID + SEN, we do not bundle Fanatec binaries
 
 ## Wheel library (swap, do not bake into the rig)
 
-1. Podium BMW M4 GT3 — first PNG
+1. Podium BMW M4 GT3 — `P_SW_BMW_GT3_H` (on the base now)
 2. CSL Elite McLaren GT3 V2
-3. ClubSport 918 RSR
+3. ClubSport 918 RSR — owner PNG lives in untracked `local/`
 4. ClubSport F1 2020
 5. ClubSport BMW GT2
 6. Leoxz XF1 Pro-3K
 
-Shoot each wheel square-on on a dark cloth, PNG with alpha, no perspective. That is the SimMR mask template without importing SimHub assets.
+Shoot each wheel square-on, PNG with alpha. Do not commit vendor or SimHub art.
